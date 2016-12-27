@@ -38,7 +38,6 @@ class NewCmd(object):
             template_file = os.path.join(self.current_path, os.path.join('template', item[1]))
             self.__do_create_file(target_file, template_file)
 
-
     def __do_create_file(self, file, template_file):
         print(file)
         print(template_file)
