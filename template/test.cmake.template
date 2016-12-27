@@ -1,9 +1,13 @@
 set(PROJECT_NAME "test_$project")
 
+set(TEST_INCLUDE_PATH "/usr/local/include")
+set(TEST_LIB_PATH "/usr/local/lib")
+SET(TEST_LIB_NAME "gtest")
+
 project($${PROJECT_NAME})
 
 include_directories("$${CMAKE_CURRENT_SOURCE_DIR}/../include"
-                    "$test_include")
+                    "$${TEST_INCLUDE_PATH}")
 
 file(GLOB_RECURSE all_files
 *.cpp
@@ -12,7 +16,7 @@ file(GLOB_RECURSE all_files
 *.c
 *.C)
 
-link_directories("$test_lib_dir")
+link_directories("$${TEST_LIB_PATH}")
 
 add_executable($${PROJECT_NAME} $${all_files})
-target_link_libraries($${PROJECT_NAME} $project $test_lib)
+target_link_libraries($${PROJECT_NAME} $project $${TEST_LIB_NAME})

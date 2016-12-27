@@ -1,0 +1,14 @@
+[project]
+# name = $project
+# ide  = eclipse
+
+[platform]
+# os  = linux
+# bit = 64
+
+[deps]
+
+[test]
+# include_path = /usr/local/include/gtest
+# link_path    = /usr/local/lib
+# lib_name     = gtest

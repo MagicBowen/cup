@@ -16,7 +16,7 @@ class NewCmd(object):
              ('test/testcase.cpp'           , 'test.testcase.cpp.template'),
              ('project/build.sh'            , 'project.build.sh.template'),
              ('project/build.bat'           , 'project.build.bat.template'),
-             ('project/cup.toml'            , 'cup.toml.template')]    
+             ('project/$project.toml'       , 'project.toml.template')]    
 
     def __init__(self, project):
         self.project = project
@@ -39,17 +39,10 @@ class NewCmd(object):
             self.__do_create_file(target_file, template_file)
 
     def __do_create_file(self, file, template_file):
-        print(file)
-        print(template_file)
-        config = ConfigParser.ConfigParser()
-        config.readfp(open(os.path.join(self.current_path, 'config/test.ini')))
         template = Template(self.__get_template_str(template_file))
         str=template.substitute( project = self.project
                                , project_upper = self.project.upper()
-                               , include_guard = self.__get_include_guard()
-                               , test_include = config.get("Default", "include_path")
-                               , test_lib_dir = config.get("Default", "link_path")
-                               , test_lib = config.get("Default", "lib_name"))
+                               , include_guard = self.__get_include_guard())
         with open(file, 'w') as f: f.write(str)
             
     def __get_template_str(self, template):

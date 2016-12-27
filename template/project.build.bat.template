@@ -1,0 +1,38 @@
+@echo off
+set project=$project
+
+echo try build %project%
+echo *******************************************************************************
+echo start generate cmake project...
+
+if not exist build md build
+
+cd build
+cmake -DENABLE_TEST=1 ../..
+
+echo *******************************************************************************
+echo start build cmake project...
+
+cmake --build .
+
+if %errorlevel% neq 0 (
+    echo build %project% fail
+    pause
+    exit 1
+)
+
+echo *******************************************************************************
+echo start run tests...
+
+./test/test_%project% --gtest_color=yes %1 %2
+
+if  %errorlevel% neq 0 (
+    echo build %project% fail
+    pause
+    exit 1
+)
+
+cd ..
+
+echo *******************************************************************************
+echo build %project% succ
