@@ -3,21 +3,19 @@ cup : c++ unified package management tool.
 """
 
 import argparse
-import new
+import UpdateCmd
+import NewCmd
 
-parser = argparse.ArgumentParser(description = 'cup : c++ unified package management tool')
-subparsers = parser.add_subparsers(help = 'commands')
+def main():
+    parser = argparse.ArgumentParser(description = 'cup : c++ unified package management tool')
+    subparsers = parser.add_subparsers(help = 'commands')
+    newparser = subparsers.add_parser('new', help = 'new a project')
+    newparser.add_argument('project', action = 'store', help = 'project name')
+    newparser.set_defaults(func = NewCmd.new_cmd)
+    initparser = subparsers.add_parser('update', help = 'update project according configuration')
+    initparser.set_defaults(func = UpdateCmd.update_cmd)
+    args = parser.parse_args()
+    args.func(args)
 
-parser.add_argument("-v", "--verbose", help="show cup version no", action = "store_true")
-
-# parser.add_argument("new", action = 'store', help="create a new project")
-
-newparser = subparsers.add_parser('new', help = 'new a project')
-newparser.add_argument('project', action = 'store', help = 'project name')
-newparser.set_defaults(func = new.new_cmd)
-
-args = parser.parse_args()
-args.func(args)
-
-if args.verbose:
-	print "cup v0.0.1"
+if __name__ == '__main__':
+    main()		

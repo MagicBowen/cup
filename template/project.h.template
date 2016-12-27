@@ -1,0 +1,10 @@
+#ifndef $include_guard
+#define $include_guard
+
+#define ${project_upper}_NS $project
+#define ${project_upper}_NS_BEGIN namespace ${project_upper}_NS {
+#define ${project_upper}_NS_END }
+#define USING_${project_upper}_NS using namespace ${project_upper}_NS;
+#define FWD_DECL_${project_upper}(type) namespace ${project_upper}_NS { struct type; }
+
+#endif

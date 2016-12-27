@@ -2,12 +2,12 @@
 C++ unified package management tool.
 
 TO DO:
-- [ ]: can create a new package, create the folder
+- [x]: can create a new package, create the folder
+- [ ]: update the test setting by config file
 - [ ]: can generate the eclipse project files for package
 - [ ]: can gerarate the git repo for package and gitignore for package (ignore eclipse and build)
 - [ ]: can generate the cup description file for package
 - [ ]: can generate the cmakefile for package
-- [ ]: can generate the makefile for package
 - [ ]: can generate the xUnit test tool for package
 - [ ]: can decripe the dependent lib of package, auto download the local
 - [ ]: can give the version number of dependent lib, download according the version no

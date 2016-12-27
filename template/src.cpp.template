@@ -1,0 +1,11 @@
+#include <$project/$project.h>
+#include <string>
+
+${project_upper}_NS_BEGIN
+
+std::string sayHello()
+{
+    return "Hello!";
+}
+
+${project_upper}_NS_END
