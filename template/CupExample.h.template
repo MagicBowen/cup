@@ -1,0 +1,15 @@
+#ifndef $include_guard
+#define $include_guard
+
+#include <$project/$project.h>
+
+${project_upper}_NS_BEGIN
+
+struct CupExample
+{
+    bool isExample() const;  
+};
+
+${project_upper}_NS_END
+
+#endif

@@ -1,7 +1,7 @@
 set(PROJECT_NAME "test_$project")
 
-set(TEST_INCLUDE_PATH "/usr/local/include")
-set(TEST_LIB_PATH "/usr/local/lib")
+set(TEST_INCLUDE_PATH "$$ENV{GTEST_ROOT}/include")
+set(TEST_LIB_PATH "$$ENV{GTEST_ROOT}/lib")
 SET(TEST_LIB_NAME "gtest")
 
 project($${PROJECT_NAME})

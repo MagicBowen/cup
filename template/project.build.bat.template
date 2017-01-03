@@ -17,22 +17,29 @@ cmake --build .
 
 if %errorlevel% neq 0 (
     echo build %project% fail
-    pause
-    exit 1
+    goto ERROR
 )
 
 echo *******************************************************************************
 echo start run tests...
 
-./test/test_%project% --gtest_color=yes %1 %2
+test/test_%project% --gtest_color=yes %1 %2
 
 if  %errorlevel% neq 0 (
     echo build %project% fail
-    pause
-    exit 1
+    goto ERROR
 )
-
-cd ..
 
 echo *******************************************************************************
 echo build %project% succ
+goto SUCC
+
+:ERROR
+
+cd ..
+exit 1
+
+:SUCC
+
+cd ..
+exit 0

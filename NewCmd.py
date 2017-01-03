@@ -1,22 +1,22 @@
 import os
 import uuid
-import ConfigParser
 from string import Template
 
 
 class NewCmd(object):
     folders = ['include/$project', 'src', 'test', 'deps', 'project', 'doc']
 
-    files = [('CMakeLists.txt'              , 'project.cmake.template'),
-             ('include/$project/$project.h' , 'project.h.template'),
-             ('src/CMakeLists.txt'          , 'src.cmake.template'),
-             ('src/$project.cpp'            , 'src.cpp.template'),
-             ('test/CMakeLists.txt'         , 'test.cmake.template'),
-             ('test/main.cpp'               , 'test.main.cpp.template'),
-             ('test/testcase.cpp'           , 'test.testcase.cpp.template'),
-             ('project/build.sh'            , 'project.build.sh.template'),
-             ('project/build.bat'           , 'project.build.bat.template'),
-             ('project/$project.toml'       , 'project.toml.template')]    
+    files = [('CMakeLists.txt'                     , 'project.cmake.template'),
+             ('include/$project/$project.h'        , 'project.h.template'),
+             ('include/$project/CupExample.h'      , 'CupExample.h.template'),
+             ('src/CupExample.cpp'                 , 'CupExample.cpp.template'),
+             ('src/CMakeLists.txt'                 , 'src.cmake.template'),
+             ('test/CMakeLists.txt'                , 'test.cmake.template'),
+             ('test/main.cpp'                      , 'test.main.cpp.template'),
+             ('test/TestCupExample.cpp'            , 'TestCupExample.cpp.template'),
+             ('project/build.sh'                   , 'project.build.sh.template'),
+             ('project/build.bat'                  , 'project.build.bat.template'),
+             ('project/$project.toml'              , 'project.toml.template')]    
 
     def __init__(self, project):
         self.project = project
