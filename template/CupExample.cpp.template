@@ -1,10 +1,10 @@
 #include <$project/CupExample.h>
 
-${project_upper}_NS_BEGIN
+${namespace}_BEGIN
 
 bool CupExample::isExample() const
 {
     return true;
 }
 
-${project_upper}_NS_END
+${namespace}_END

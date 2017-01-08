@@ -3,13 +3,13 @@
 
 #include <$project/$project.h>
 
-${project_upper}_NS_BEGIN
+${namespace}_BEGIN
 
 struct CupExample
 {
     bool isExample() const;  
 };
 
-${project_upper}_NS_END
+${namespace}_END
 
 #endif

@@ -1,7 +1,6 @@
 import os
-import uuid
 from string import Template
-
+from ProjectInfo import ProjectInfo
 
 class ProjectGenerator(object):
     folders = ['include/$project', 'src', 'test', 'cup']
@@ -21,6 +20,7 @@ class ProjectGenerator(object):
     def __init__(self, project):
         self.project = project
         self.current_path = os.path.dirname(os.path.abspath(__file__))
+        ProjectInfo.init(project)
 
     def generate(self):
         self.__create_folder()
@@ -39,21 +39,18 @@ class ProjectGenerator(object):
             self.__do_create_file(target_file, template_file)
 
     def __do_create_file(self, file, template_file):
-        template = Template(self.__get_template_str(template_file))
-        str=template.substitute( project = self.project
-                               , project_upper = self.project.upper()
-                               , include_guard = self.__get_include_guard())
+        str = ProjectInfo.fill(self.__get_template_str(template_file))
         with open(file, 'w') as f: f.write(str)
             
     def __get_template_str(self, template):
         with open(template, 'r') as f:
             return f.read()
 
-    def __get_include_guard(self):
-        uuid_str = str(uuid.uuid1())
-        return 'H' + uuid_str.replace('-', '_').upper()
-
 
 def new_project(args):
+    if(os.path.exists(os.path.join(os.getcwd(), args.project))):
+        print('CUP: %s is already exist, create failed!' % args.project)
+        exit(1)
+
     ProjectGenerator(args.project).generate()
     print('CUP: create project %s successful!' % (args.project))

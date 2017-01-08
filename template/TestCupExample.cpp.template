@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <$project/CupExample.h>
 
-USING_${project_upper}_NS
+USING_${namespace}
 
 TEST(TestCupExample, should_be_true_when_verify_an_example)
 {
