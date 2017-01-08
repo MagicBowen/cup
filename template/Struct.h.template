@@ -1,0 +1,14 @@
+#ifndef $include_guard
+#define $include_guard
+
+#include <$project/$project.h>
+
+${namespace}_BEGIN
+
+struct ${struct}
+{
+};
+
+${namespace}_END
+
+#endif

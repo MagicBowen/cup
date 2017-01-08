@@ -1,0 +1,7 @@
+#include <${struct_header}>
+
+${namespace}_BEGIN
+
+
+
+${namespace}_END

@@ -1,6 +1,7 @@
 import os
 from string import Template
 from ProjectInfo import ProjectInfo
+from FileUtils import FileUtils
 
 class ProjectGenerator(object):
     folders = ['include/$project', 'src', 'test', 'cup']
@@ -27,24 +28,20 @@ class ProjectGenerator(object):
         self.__create_file()
 
     def __create_folder(self):
-        for folder in ProjectGenerator.folders:
+        for folder in self.folders:
             path = Template(folder).substitute(project = self.project)
             os.makedirs(os.path.join(os.getcwd(), os.path.join(self.project, path)))
 
     def __create_file(self):
-        for item in ProjectGenerator.files:
+        for item in self.files:
             path = Template(item[0]).substitute(project = self.project)
             target_file   = os.path.join(os.getcwd(), os.path.join(self.project, path))
             template_file = os.path.join(self.current_path, os.path.join('template', item[1]))
             self.__do_create_file(target_file, template_file)
 
     def __do_create_file(self, file, template_file):
-        str = ProjectInfo.fill(self.__get_template_str(template_file))
-        with open(file, 'w') as f: f.write(str)
-            
-    def __get_template_str(self, template):
-        with open(template, 'r') as f:
-            return f.read()
+        str = ProjectInfo.fill(FileUtils.get_content(template_file))
+        FileUtils.set_content(file, str)
 
 
 def new_project(args):

@@ -1,0 +1,9 @@
+#include <gtest/gtest.h>
+#include <${struct_header}>
+
+USING_${namespace}
+
+TEST(Test${struct}, should_be_true)
+{
+    ASSERT_TRUE(false);
+}

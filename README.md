@@ -3,7 +3,10 @@ C++ unified package management tool.
 
 TO DO:
 - [x]: can create a new package, create the folder
-- [ ]: generate the build bat for windows
+- [ ]: can generate file: header, src, test, class
+- [ ]: can specify project without example
+- [ ]: can generate file in sub-directory
+- [x]: generate the build bat for windows
 - [ ]: update the test setting by config file
 - [ ]: can generate the eclipse project files for package
 - [ ]: can gerarate the git repo for package and gitignore for package (ignore eclipse and build)
