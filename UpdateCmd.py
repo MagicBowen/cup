@@ -1,4 +1,4 @@
 import os
 
-def update_cmd(args):
-    print(os.path.dirname(os.path.abspath(__file__)))
+def update_project(args):
+    print('CUP: update project successful!')

@@ -3,8 +3,8 @@ import uuid
 from string import Template
 
 
-class NewCmd(object):
-    folders = ['include/$project', 'src', 'test', 'deps', 'project', 'doc']
+class ProjectGenerator(object):
+    folders = ['include/$project', 'src', 'test', 'cup']
 
     files = [('CMakeLists.txt'                     , 'project.cmake.template'),
              ('include/$project/$project.h'        , 'project.h.template'),
@@ -14,25 +14,25 @@ class NewCmd(object):
              ('test/CMakeLists.txt'                , 'test.cmake.template'),
              ('test/main.cpp'                      , 'test.main.cpp.template'),
              ('test/TestCupExample.cpp'            , 'TestCupExample.cpp.template'),
-             ('project/build.sh'                   , 'project.build.sh.template'),
-             ('project/build.bat'                  , 'project.build.bat.template'),
-             ('project/$project.toml'              , 'project.toml.template')]    
+             ('cup/build.sh'                       , 'project.build.sh.template'),
+             ('cup/build.bat'                      , 'project.build.bat.template'),
+             ('cup/$project.cup'                   , 'project.cup.template')]    
 
     def __init__(self, project):
         self.project = project
         self.current_path = os.path.dirname(os.path.abspath(__file__))
 
-    def execute(self):
+    def generate(self):
         self.__create_folder()
         self.__create_file()
 
     def __create_folder(self):
-        for folder in NewCmd.folders:
+        for folder in ProjectGenerator.folders:
             path = Template(folder).substitute(project = self.project)
             os.makedirs(os.path.join(os.getcwd(), os.path.join(self.project, path)))
 
     def __create_file(self):
-        for item in NewCmd.files:
+        for item in ProjectGenerator.files:
             path = Template(item[0]).substitute(project = self.project)
             target_file   = os.path.join(os.getcwd(), os.path.join(self.project, path))
             template_file = os.path.join(self.current_path, os.path.join('template', item[1]))
@@ -53,6 +53,7 @@ class NewCmd(object):
         uuid_str = str(uuid.uuid1())
         return 'H' + uuid_str.replace('-', '_').upper()
 
-def new_cmd(args):
-    cmd = NewCmd(args.project)
-    cmd.execute()
+
+def new_project(args):
+    ProjectGenerator(args.project).generate()
+    print('CUP: create project %s successful!' % (args.project))

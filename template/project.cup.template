@@ -1,0 +1,17 @@
+[project]
+name = $project
+
+[ide]
+# ide  = eclipse
+
+[platform]
+# os  = linux | windows| macos
+# bit = 64
+
+[deps]
+# none
+
+[test]
+include_path = $$ENV{GTEST_ROOT}/include/gtest
+link_path    = $$ENV{GTEST_ROOT}/lib
+lib_name     = gtest
