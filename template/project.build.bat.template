@@ -23,23 +23,21 @@ if %errorlevel% neq 0 (
 echo *******************************************************************************
 echo start run tests...
 
-test/test_%project% --gtest_color=yes %1 %2
+test\Debug\test_%project% --gtest_color=yes %1 %2
 
 if  %errorlevel% neq 0 (
     echo build %project% fail
     goto ERROR
 )
 
-echo *******************************************************************************
-echo build %project% succ
-goto SUCC
+goto END
 
 :ERROR
-
 cd ..
-exit 1
+echo ERROR! 
+exit \b 1
 
-:SUCC
-
+:END
 cd ..
-exit 0
+echo SUCCESS!
+exit \b 0
