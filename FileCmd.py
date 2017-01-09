@@ -9,13 +9,34 @@ class FileGenerator:
                 , 'test'    : 'TestStruct.cpp.template'}
 
     @classmethod
-    def generate_file(cls, file, type):
+    def generate(cls, args):
+        files = {}
+        if args.include:
+            cls.__generate_file(args.file, 'include')
+        elif args.src:
+            cls.__generate_file(args.file, 'src')
+        elif args.test:
+            cls.__generate_file(args.file, 'test')
+        elif args.struct:
+            cls.__generate_file(args.file + '.h', 'include')
+            cls.__generate_file(args.file + '.cpp', 'src')
+        elif args.all:
+            cls.__generate_file(args.file + '.h', 'include')
+            cls.__generate_file(args.file + '.cpp', 'src')
+            cls.__generate_file(args.file + '.cpp', 'test')
+        else:
+            raise Exception('must specify the file type [-i | -s | -t | -c | -a]')
+
+
+    @classmethod
+    def __generate_file(cls, file, type):
         template_file = os.path.join(CupInfo.template_path, cls.templates[type])
         file_path, file_name = os.path.split(file)
         struct_name = file_name.split('.')[0]
         full_path = os.path.join(ProjectInfo.paths[type], file_path)
         include_path = os.path.join(ProjectInfo.name, os.path.join(file_path, struct_name + '.h'))
-        target_file = os.path.join(full_path, file_name)
+        prefix = 'Test' if type == 'test' else ''
+        target_file = os.path.join(full_path, prefix + file_name)
 
         if not os.path.exists(full_path):
             os.makedirs(full_path)
@@ -23,24 +44,6 @@ class FileGenerator:
         ProjectInfo.generate_file_by_template(template_file, target_file,
                                               struct_header = include_path,
                                               struct = struct_name)
-
-    @classmethod
-    def generate(cls, args):
-        files = {}
-        if args.include:
-            cls.generate_file(args.file, 'include')
-        if args.src:
-            cls.generate_file(args.file, 'src')
-        if args.test:
-            cls.generate_file(args.file, 'test')
-        if args.struct:
-            cls.generate_file(args.file + '.h', 'include')
-            cls.generate_file(args.file + '.cpp', 'src')
-        if args.all:
-            cls.generate_file(args.file + '.h', 'include')
-            cls.generate_file(args.file + '.cpp', 'src')
-            cls.generate_file(args.file + '.cpp', 'test')
-            
 
 
 def create_file(args):
@@ -51,5 +54,3 @@ def create_file(args):
         print('CUP: create file for %s successful!' % (args.file))
     except Exception as e:
         print('CUP: error occured,', e)
-
-        
