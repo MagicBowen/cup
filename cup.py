@@ -13,7 +13,8 @@ def main():
 
     new_parser = subparsers.add_parser('new', help = 'new a project')
     new_parser.add_argument('project', action = 'store', help = 'project name')
-    new_parser.add_argument('-e', '--example', action = 'store_true', help = 'with example files')
+    new_parser.add_argument('-s', '--sample', action = 'store_true', help = 'with sample h and cpp files')
+    new_parser.add_argument('-e', '--ide', action = 'store_true', help = 'with eclipse project file')
     new_parser.set_defaults(func = new_project)
 
     file_parser = subparsers.add_parser('file', help = 'generate files')

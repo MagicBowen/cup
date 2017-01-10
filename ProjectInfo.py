@@ -6,7 +6,7 @@ from FileUtils import FileUtils
 
 
 class ProjectInfo:
-    folders = ['include/$project', 'src', 'test', 'cup']
+    folders = ['include/$project', 'src', 'test', 'cup/project']
     name = None
     namespace = None
     root_path = None
@@ -16,11 +16,16 @@ class ProjectInfo:
     def init(cls, project):
         cls.name = project
         cls.namespace = cls.name.upper() + '_NS'
+        cls.load_path(True)
 
     @classmethod
-    def load_path(cls):
-        cls.root_path = os.path.dirname(os.getcwd())
-        project_name = os.path.split(cls.root_path)[-1] if cls.name is None else cls.name
+    def load_path(cls, init):
+        if init:
+            cls.root_path = os.path.join(os.getcwd(), cls.name)
+            project_name = cls.name
+        else:
+            cls.root_path = os.path.dirname(os.getcwd())
+            project_name = os.path.split(cls.root_path)[-1]
         cls.paths['include'] = os.path.join(os.path.join(cls.root_path, 'include'), project_name)
         cls.paths['src'] = os.path.join(cls.root_path, 'src')
         cls.paths['test'] = os.path.join(cls.root_path, 'test')
@@ -30,7 +35,7 @@ class ProjectInfo:
     def load(cls):
         if not cls.cwd_ok():
             raise Exception('not in the project cup folder')
-        cls.load_path()
+        cls.load_path(False)
         cls.load_config(cls.get_cfg_file())
 
     @classmethod
@@ -49,8 +54,8 @@ class ProjectInfo:
     def load_config(cls, config_file):
         cf = configparser.ConfigParser()
         cf.read(os.path.join(cls.paths['cfg'], config_file))
-        project_name = cf.get('project', 'name')
-        cls.init(project_name)
+        cls.name = cf.get('project', 'name')
+        cls.namespace = cls.name.upper() + '_NS'
 
     @classmethod
     def fill(cls, template_str, dict): 
@@ -58,6 +63,10 @@ class ProjectInfo:
         target_dict['project'] = cls.name
         target_dict['namespace'] = cls.namespace
         target_dict['include_guard'] = cls.generate_include_guard()
+        target_dict['project_root'] = cls.root_path
+        target_dict['include_root'] = os.path.join(os.path.join(cls.root_path, 'include'))
+        target_dict['src_root'] = cls.paths['src']
+        target_dict['test_root'] = cls.paths['test']
 
         template = Template(template_str)
         result = template.substitute(target_dict)   

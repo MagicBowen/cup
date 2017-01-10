@@ -14,19 +14,24 @@ class ProjectGenerator(object):
              ('cup/build.bat'                      , 'project.build.bat.template'),
              ('cup/$project.cup'                   , 'project.cup.template')]    
 
-    example = [('include/$project/CupExample.h'      , 'CupExample.h.template'),
-               ('src/CupExample.cpp'                 , 'CupExample.cpp.template'),
-               ('test/TestCupExample.cpp'            , 'TestCupExample.cpp.template')]
+    sample = [('include/$project/CupExample.h'     , 'CupExample.h.template'),
+              ('src/CupExample.cpp'                , 'CupExample.cpp.template'),
+              ('test/TestCupExample.cpp'           , 'TestCupExample.cpp.template')]
+
+    ide    = [('cup/project/.project'              , 'eclipse.project.template'),
+              ('cup/project/.cproject'             , 'eclipse.cproject.template')]
 
     def __init__(self, project):
         self.project = project
         ProjectInfo.init(project)
 
-    def generate(self, with_example):
+    def generate(self, with_sample, with_ide):
         self.__create_folders()
         self.__create_files(self.files)
-        if with_example:
-            self.__create_files(self.example)
+        if with_sample:
+            self.__create_files(self.sample)
+        if with_ide:
+            self.__create_files(self.ide)
 
     def __create_folders(self):
         for folder in ProjectInfo.folders:
@@ -47,5 +52,5 @@ def new_project(args):
         exit(1)
 
     CupInfo.load()
-    ProjectGenerator(args.project).generate(args.example)
+    ProjectGenerator(args.project).generate(args.sample, args.ide)
     print('CUP: create project %s successful!' % (args.project))
