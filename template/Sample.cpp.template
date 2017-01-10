@@ -1,0 +1,10 @@
+#include <$project/Sample.h>
+
+${namespace}_BEGIN
+
+bool Sample::isSample() const
+{
+    return true;
+}
+
+${namespace}_END

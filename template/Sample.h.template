@@ -5,9 +5,9 @@
 
 ${namespace}_BEGIN
 
-struct CupExample
+struct Sample
 {
-    bool isExample() const;  
+    bool isSample() const;  
 };
 
 ${namespace}_END

@@ -14,9 +14,9 @@ class ProjectGenerator(object):
              ('cup/build.bat'                      , 'project.build.bat.template'),
              ('cup/$project.cup'                   , 'project.cup.template')]    
 
-    sample = [('include/$project/CupExample.h'     , 'CupExample.h.template'),
-              ('src/CupExample.cpp'                , 'CupExample.cpp.template'),
-              ('test/TestCupExample.cpp'           , 'TestCupExample.cpp.template')]
+    sample = [('include/$project/Sample.h'         , 'Sample.h.template'),
+              ('src/Sample.cpp'                    , 'Sample.cpp.template'),
+              ('test/TestSample.cpp'               , 'TestSample.cpp.template')]
 
     ide    = [('cup/project/.project'              , 'eclipse.project.template'),
               ('cup/project/.cproject'             , 'eclipse.cproject.template')]

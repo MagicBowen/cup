@@ -1,9 +1,0 @@
-#include <gtest/gtest.h>
-#include <$project/CupExample.h>
-
-USING_${namespace}
-
-TEST(TestCupExample, should_be_true_when_verify_an_example)
-{
-    ASSERT_TRUE(CupExample().isExample());
-}
