@@ -1,9 +1,0 @@
-#include <gtest/gtest.h>
-#include <$project/Sample.h>
-
-USING_${namespace}
-
-TEST(TestSample, should_be_sample)
-{
-    ASSERT_TRUE(Sample().isSample());
-}

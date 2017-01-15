@@ -1,56 +1,28 @@
 import os
-from string import Template
-from ProjectInfo import ProjectInfo
-from FileUtils import FileUtils
-from CupInfo   import CupInfo
-
-class ProjectGenerator(object):
-    files = [('CMakeLists.txt'                     , 'project.cmake.template'),
-             ('include/$project/$project.h'        , 'project.h.template'),
-             ('src/CMakeLists.txt'                 , 'src.cmake.template'),
-             ('test/CMakeLists.txt'                , 'test.cmake.template'),
-             ('test/main.cpp'                      , 'test.main.cpp.template'),
-             ('cup/build.sh'                       , 'project.build.sh.template'),
-             ('cup/build.bat'                      , 'project.build.bat.template'),
-             ('cup/$project.cup'                   , 'project.cup.template')]    
-
-    sample = [('include/$project/Sample.h'         , 'Sample.h.template'),
-              ('src/Sample.cpp'                    , 'Sample.cpp.template'),
-              ('test/TestSample.cpp'               , 'TestSample.cpp.template')]
-
-    ide    = [('cup/project/.project'              , 'eclipse.project.template'),
-              ('cup/project/.cproject'             , 'eclipse.cproject.template')]
-
-    def __init__(self, project):
-        self.project = project
-        ProjectInfo.init(project)
-
-    def generate(self, with_sample, with_ide):
-        self.__create_folders()
-        self.__create_files(self.files)
-        if with_sample:
-            self.__create_files(self.sample)
-        if with_ide:
-            self.__create_files(self.ide)
-
-    def __create_folders(self):
-        for folder in ProjectInfo.folders:
-            path = Template(folder).substitute(project = self.project)
-            os.makedirs(os.path.join(os.getcwd(), os.path.join(self.project, path)))
-
-    def __create_files(self , files):
-        for item in files:
-            path = Template(item[0]).substitute(project = self.project)
-            target_file   = os.path.join(os.getcwd(), os.path.join(self.project, path))
-            template_file = os.path.join(CupInfo.template_path, item[1])
-            ProjectInfo.generate_file_by_template(template_file, target_file)
+import platform
+from project import Project
+from cupinfo import CupInfo
 
 
-def new_project(args):
-    if(os.path.exists(os.path.join(os.getcwd(), args.project))):
-        print('CUP: %s is already exist, create failed!' % args.project)
-        exit(1)
+class ProjectGenerator:
+    base_files = ['project_config', 'project_cmake', 'namespace', 'src_cmake', 'test_cmake', 'test_main']
+    eclipse_files = ['eclipse_project', 'eclipse_cproject']
 
-    CupInfo.load()
-    ProjectGenerator(args.project).generate(args.sample, args.ide)
-    print('CUP: create project %s successful!' % (args.project))
+    @classmethod
+    def generate(cls, args):
+        project_name = args.project
+        project_root = os.path.join(os.getcwd(), project_name)
+
+        if os.path.exists(project_root):
+            print('CUP: %s is already exist, create failed!' % project_name)
+            exit(1)
+
+        build_bash = 'build_bat' if platform.system() == 'Windows' else 'build_sh'
+        cls.base_files.append(build_bash)
+
+        project = Project(project_name, project_root)
+        CupInfo.create(cls.base_files, project.get_info())
+        if args.ide:
+            CupInfo.create(cls.eclipse_files, project.get_info())
+
+        print('CUP: create project %s successful!' % project_name)

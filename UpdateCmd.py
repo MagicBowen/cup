@@ -1,4 +1,4 @@
-import os
-
-def update_project(args):
-    print('CUP: update project successful!')
+class ProjectUpdater:
+    @classmethod
+    def update(cls):
+        print('CUP: update successful!')
