@@ -12,7 +12,7 @@ echo "**************************************************************************
 echo "start to build $project ..."
 
 
-cmake -DENABLE_TEST=1 ../..
+cmake -DENABLE_TEST=1 ..
 cmake --build .
 
 if [ $$? -ne 0 ]; then
