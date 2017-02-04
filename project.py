@@ -3,6 +3,7 @@ import json
 import uuid
 
 
+
 class Project:
     @classmethod
     def new(cls, root, name):
