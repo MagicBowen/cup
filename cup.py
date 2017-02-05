@@ -6,6 +6,7 @@ import argparse
 import initcmd
 import newcmd
 import updatecmd
+import movecmd
 
 
 
@@ -25,6 +26,10 @@ def main():
     new_parser.add_argument('-c', '--struct',  action = 'store_true', help = 'with header and source file')
     new_parser.add_argument('-a', '--all',    action = 'store_true', help = 'with header, source and test file')
     new_parser.set_defaults(func = newcmd.run)
+
+    move_parser = subparsers.add_parser('move', help = 'rename class, file or move folder')
+    move_parser.add_argument('-s', '--source', action = 'store', help = 'source name')
+    move_parser.add_argument('-d', '--destination', action = 'store', help = 'destination name')
 
     update_parser = subparsers.add_parser('update', help = 'update project according configuration')
     update_parser.set_defaults(func = updatecmd.run)    
