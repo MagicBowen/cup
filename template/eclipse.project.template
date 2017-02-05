@@ -24,26 +24,4 @@
         <nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
         <nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
     </natures>
-    <linkedResources>
-        <link>
-            <name>CMakeLists.txt</name>
-            <type>1</type>
-            <location>$project_root/CMakeLists.txt</location>
-        </link>
-        <link>
-            <name>include</name>
-            <type>2</type>
-            <location>$include_root</location>
-        </link>
-        <link>
-            <name>src</name>
-            <type>2</type>
-            <location>$src_root</location>
-        </link>
-        <link>
-            <name>test</name>
-            <type>2</type>
-            <location>$test_root</location>
-        </link>
-    </linkedResources>
 </projectDescription>

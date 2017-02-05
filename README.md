@@ -1,36 +1,43 @@
-# cup
-C++ unified package management tool.
+# CUP : C++ unified package management tool
 
-TO DO:
-- [x]: can create a new package, create the folder
-- [x]: can generate file: header, src, test, class
-- [x]: generate the build sh for linux/mac
-- [x]: generate the build bat for windows
-- [x]: can generate the eclipse project files
-- [ ]: update project.cup by actual args
+## usage
+
+~~~bash
+mkdir testcup
+cd testcup
+python cup.py init testcup
+python cup.py new -a Example
+chmod a+x build.sh
+./build.sh
+~~~
+
+after create a project, you can import the project to eclipse-cdt directly.
+
+
+## to to
+
+- [x]: create a new project, create the default folders and files
+- [x]: generate file: header file, source file, test file, class, and class with test
+- [x]: generate the build script for linux/mac
+- [x]: generate the build script for windows
+- [x]: generate the eclipse project files
+
+- [ ]: rename a class
+- [ ]: rename a header file
+- [ ]: move a header file
+- [ ]: move a header folder
+
 - [ ]: update the test setting by config file
-- [ ]: update the project build attributes by config file
-- [ ]: can rename file or class
-- [ ]: can gerarate the git repo for package and gitignore for package (ignore eclipse and build)
-- [ ]: can generate file in sub-directory
+- [ ]: update the build attributes by config file
+- [ ]: recover a project by project cup config file
 
-- [ ]: can decripe the dependent lib of package, auto download the local
-- [ ]: can give the version number of dependent lib, download according the version no
+- [ ]: can gerarate the git repo for package and gitignore (ignore eclipse and build)
+
+- [ ]: can describe the dependent package in local
+- [ ]: can describe the dependent package in git by commit id
+- [ ]: can decide to copy the dependent to project or not
+- [ ]: can describe the dependent by a remote git repo and download to local
 - [ ]: can check the complicated dependences, check the duplicated depend and ring depend
-- [ ]: can auto recognize the dependences by '#include'
+- [ ]: can publish project
+- [ ]: can auto recognize the dependent files by '#include'
 - [ ]: just download the dependent files
-- [ ]: dependent could be in local or remote
-- [ ]: dependent could be a git repository  
-
-
-
-- cup init : init project, para : project name
-    - folder exist
-    - folder not exist
-    - default: not build, test, eclipse
-    - '-e': eclipse
-    - '-t': test
-    - '-b': build and cmake
-    - '-a': create all
-    - 'project.cup' generate according the params, first generate project.cup
-
