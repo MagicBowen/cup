@@ -1,28 +1,40 @@
 import os
-import platform
 from project import Project
-from cupinfo import CupInfo
 
 
-class ProjectGenerator:
-    base_files = ['project_config', 'project_cmake', 'namespace', 'src_cmake', 'test_cmake', 'test_main']
-    eclipse_files = ['eclipse_project', 'eclipse_cproject']
 
-    @classmethod
-    def generate(cls, args):
-        project_name = args.project
-        project_root = os.path.join(os.getcwd(), project_name)
+class NewCmd:
+    def __init__(self, args):
+        self.project = Project.load(os.getcwd())
+        self.file = args.file
+        self.args = args
 
-        if os.path.exists(project_root):
-            print('CUP: %s is already exist, create failed!' % project_name)
-            exit(1)
+    def execute(self):
+        if self.args.include:
+            self.__generate_file('header_file', self.file)
+        elif self.args.src:
+            self.__generate_file('src_file', self.file)
+        elif self.args.test:
+            self.__generate_file('test_file', self.file)
+        elif self.args.struct:
+            self.__generate_file('header_file', self.file, postfix = '.h')
+            self.__generate_file('src_file', self.file, postfix = '.cpp')
+        elif self.args.all:
+            self.__generate_file('header_file', self.file, postfix = '.h')
+            self.__generate_file('src_file', self.file, postfix = '.cpp')
+            self.__generate_file('test_file', self.file, prefix = 'Test', postfix = '.cpp')
+        else:
+            raise Exception('must specify the file type [-i | -s | -t | -c | -a]') 
 
-        build_bash = 'build_bat' if platform.system() == 'Windows' else 'build_sh'
-        cls.base_files.append(build_bash)
+    def __generate_file(self, key, file, prefix = '', postfix = ''):
+        path, name = os.path.split(file)
+        if path != '' : path = '/' + path
+        struct = name.split('.')[0]
+        filename = prefix + name + postfix
+        self.project.generate_file(key, filepath = path, filename = filename, struct = struct)
 
-        project = Project(project_name, project_root)
-        CupInfo.create(cls.base_files, project.get_info())
-        if args.ide:
-            CupInfo.create(cls.eclipse_files, project.get_info())
 
-        print('CUP: create project %s successful!' % project_name)
+def run(args):
+    cmd = NewCmd(args)
+    cmd.execute()
+    print('CUP: create %s successful!' % args.file)

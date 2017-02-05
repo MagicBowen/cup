@@ -1,4 +1,4 @@
-#include <${struct_header}>
+#include <${project}${filepath}/${struct}.h>
 
 ${namespace}_BEGIN
 

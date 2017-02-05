@@ -1,54 +1,56 @@
 import os
-import json
 import uuid
+from projectconfig import ProjectConfig
+from cupinfo import CupInfo
 
 
 
 class Project:
     @classmethod
     def new(cls, root, name):
-        cls.__create_config_file(root, name)
-        return cls.load(root, name)
+        cfg = ProjectConfig(root)
+        cfg.save_default(name)
+        return cls.load(root)
 
     @classmethod
-    def load(cls, root, name):
-        with open(cls.__get_cfg_file_name(root, name), 'r') as f:
-            cfg = json.load(f)
-            return cls(cfg, root)
-
-    @classmethod
-    def __create_config_file(cls, root, name):
-        cfg_file = cls.__get_cfg_file_name(root, name)
-        if os.path.exists(cfg_file):
-            raise Exception('project %s already exists' % (name))
-        with open(cfg_file, 'w') as f:
-            json.dump(cls.__get_default_config(name), f, indent=4)
-
-    @classmethod
-    def __get_cfg_file_name(cls, root, name):
-        filename = '{}.cup'.format(name)
-        return os.path.join(root, filename)
-
-    @classmethod
-    def __get_default_config(cls, name):
-        return  { 'name' : name
-                , 'project_type' : 'eclipse'
-                , 'test' : {'include' : ['ENV{GTEST_PATH}/include'], 
-                            'link_path' : ['ENV{GTEST_PATH}/lib'], 
-                            'lib' : ['gtest.a'],
-                            'exclude' : None}
-                }
+    def load(cls, root):
+        cfg = ProjectConfig(root)
+        return cls(cfg.load(), root)
 
     def __init__(self, cfg, root):
         self.cfg = cfg
-        self.name = cfg['name']
+        self.name = cfg['project']['name']
         self.root = root
 
-    def get_info(self):
-        return {'project'       : self.name,
-                'project_root'  : self.root,
-                'namespace'     : self.__generate_namespace(),
-                'include_guard' : self.__generate_include_guard()}
+    def generate(self):
+        files = self.__get_default_files()
+        for file in files:
+            self.generate_file(file)
+
+    def generate_file(self, file, **paras):
+        CupInfo.create_file(file, dict(self.__get_info(), **paras))
+
+    def __get_default_files(self):
+        return  [ 'project_cmake'
+                , 'namespace'
+                , 'src_cmake'
+                , 'test_cmake'
+                , 'test_main'
+                , 'eclipse_project'
+                , 'eclipse_cproject'
+                , 'build_bat' if self.cfg['build']['os'] == 'Windows' else 'build_sh']
+
+    def __get_info(self):
+        return { 'project'           : self.name
+               , 'project_root'      : self.root
+               , 'namespace'         : self.__generate_namespace()
+               , 'include_guard'     : self.__generate_include_guard()
+               , 'test_include_path' : self.cfg['test']['include']
+               , 'test_link_path'    : self.cfg['test']['link_path']
+               , 'test_lib'          : self.cfg['test']['lib']
+               , 'include_root'      : '{}/include'.format(self.root)
+               , 'src_root'          : '{}/src'.format(self.root)
+               , 'test_root'         : '{}/test'.format(self.root)}
 
     def __generate_namespace(self):
         return self.name.upper() + '_NS'

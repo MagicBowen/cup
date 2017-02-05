@@ -1,6 +1,6 @@
 project(test_$project)
 
-include_directories("$${TEST_INCLUDE_PATH}")
+include_directories(${test_include_path})
 
 file(GLOB_RECURSE all_files
 *.cpp
@@ -9,8 +9,8 @@ file(GLOB_RECURSE all_files
 *.c
 *.C)
 
-link_directories("$${TEST_LIB_PATH}")
+link_directories(${test_link_path})
 
 add_executable(test_$project $${all_files})
 
-target_link_libraries(test_$project $project $${TEST_LIB_NAME})
+target_link_libraries(test_$project $project ${test_lib})

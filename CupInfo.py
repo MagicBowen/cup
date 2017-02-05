@@ -3,9 +3,9 @@ from string import Template
 from fileutils import FileUtils
 
 
+
 class CupInfo:
-    template_files = {'project_config'  : 'project.cup.template',
-                     'project_cmake'    : 'project.cmake.template',
+    template_files = {'project_cmake'    : 'project.cmake.template',
                      'build_sh'         : 'project.build.sh.template',
                      'build_bat'        : 'project.build.bat.template',
                      'eclipse_project'  : 'eclipse.project.template',
@@ -18,8 +18,7 @@ class CupInfo:
                      'src_file'         : 'struct.cpp.template',
                      'test_file'        : 'test.struct.cpp.template'}
 
-    target_files =   {'project_config'  : '${project_root}/${project}.cup',
-                     'project_cmake'    : '${project_root}/CMakeLists.txt',
+    target_files =   {'project_cmake'    : '${project_root}/CMakeLists.txt',
                      'build_sh'         : '${project_root}/build.sh',
                      'build_bat'        : '${project_root}/build.bat',
                      'eclipse_project'  : '${project_root}/.project',
@@ -32,15 +31,6 @@ class CupInfo:
                      'src_file'         : '${project_root}/src/${filepath}/${filename}',
                      'test_file'        : '${project_root}/test/${filepath}/${filename}'}
 
-    ide_path_root = {'include_root' : '${project_root}/include',
-                     'src_root'    : '${project_root}/src',
-                     'test_root'   : '${project_root}/test'}
-
-    @classmethod
-    def create(cls, files, info):
-        for key in files:
-            cls.create_file(key, info)
-
     @classmethod
     def create_file(cls, key, info):
         target = cls.__get_target_file(key, info)
@@ -50,7 +40,7 @@ class CupInfo:
     @classmethod
     def __do_create_file(cls, src_file, target_file, info):
         template = Template(FileUtils.get_content(src_file))
-        content = template.substitute(cls.__get_all_info(info))
+        content = template.substitute(info)
         FileUtils.fullfill(target_file, content)
 
     @classmethod
@@ -62,13 +52,6 @@ class CupInfo:
     @classmethod
     def __get_target_file(cls, key, info):
         return cls.__substitute(cls.target_files[key], info)
-
-    @classmethod
-    def __get_all_info(cls, info):
-        result = {}
-        for key, value in cls.ide_path_root.items():
-            result[key] = cls.__substitute(value, info)
-        return dict(result, **info)
 
     @classmethod
     def __substitute(cls, template_str, info):
