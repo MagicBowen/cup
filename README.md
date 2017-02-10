@@ -22,7 +22,7 @@ after create a project, you can import the project to eclipse-cdt directly.
 - [x]: generate the build script for windows
 - [x]: generate the eclipse project files
 
-- [ ]: generate file in subfolder for project
+- [x]: generate file in subfolder for project
 
 - [ ]: rename a class
 - [ ]: rename a header file
