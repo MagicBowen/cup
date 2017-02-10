@@ -5,7 +5,7 @@ from project import Project
 
 class UpdateCmd:
     def __init__(self, args):
-        self.project = Project.load(os.getcwd())
+        self.project = Project.load()
 
     def execute(self):
         pass

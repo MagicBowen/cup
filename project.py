@@ -10,17 +10,17 @@ class Project:
     def new(cls, root, name):
         cfg = ProjectConfig(root)
         cfg.save_default(name)
-        return cls.load(root)
+        return cls.load()
 
     @classmethod
-    def load(cls, root):
-        cfg = ProjectConfig(root)
-        return cls(cfg.load(), root)
+    def load(cls):
+        cfg = ProjectConfig()
+        return cls(cfg.load())
 
-    def __init__(self, cfg, root):
+    def __init__(self, cfg):
         self.cfg = cfg
         self.name = cfg['project']['name']
-        self.root = root
+        self.root = cfg['root']
 
     def generate(self):
         files = self.__get_default_files()
@@ -28,7 +28,7 @@ class Project:
             self.generate_file(file)
 
     def generate_file(self, file, **paras):
-        CupInfo.create_file(file, dict(self.__get_info(), **paras))
+        CupInfo.create_file(file, dict(self.get_info(), **paras))
 
     def __get_default_files(self):
         return  [ 'project_cmake'
@@ -40,7 +40,7 @@ class Project:
                 , 'eclipse_cproject'
                 , 'build_bat' if self.cfg['build']['os'] == 'Windows' else 'build_sh']
 
-    def __get_info(self):
+    def get_info(self):
         return { 'project'           : self.name
                , 'project_root'      : self.root
                , 'namespace'         : self.__generate_namespace()

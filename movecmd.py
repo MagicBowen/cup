@@ -5,7 +5,7 @@ from project import Project
 
 class MoveCmd:
     def __init__(self, args):
-        self.project = Project.load(os.getcwd())
+        self.project = Project.load()
         self.args = args
 
     def execute(self):

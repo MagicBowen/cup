@@ -26,7 +26,7 @@ echo start run tests...
 test\Debug\test_%project% --gtest_color=yes %1 %2
 
 if  %errorlevel% neq 0 (
-    echo build %project% fail
+    echo test %project% fail
     goto ERROR
 )
 
@@ -35,9 +35,9 @@ goto END
 :ERROR
 cd ..
 echo ERROR! 
-exit \b 1
+exit /b 1
 
 :END
 cd ..
 echo SUCCESS!
-exit \b 0
+exit /b 0

@@ -5,8 +5,8 @@ import configparser
 
 
 class ProjectConfig:
-    def __init__(self, project_root):
-        self.root = project_root
+    def __init__(self, root = None):
+        self.root = self.__get_root() if root is None else root
         self.parser = configparser.ConfigParser()
 
     def save_default(self, project_name):
@@ -28,7 +28,7 @@ class ProjectConfig:
 
     def load(self):
         self.parser.read(self.__get_config_file())
-        cfg = {}
+        cfg = {'root' : self.root}
         for section in self.parser.sections():
             subcfg = {}
             for item in self.parser.items(section):
@@ -36,10 +36,24 @@ class ProjectConfig:
             cfg[section] = subcfg
         return cfg
 
-    def __get_config_file(self):
-        for dir in os.listdir(self.root):
+    def __get_root(self):
+        path = os.getcwd()
+        while path != '/':
+            project_cfg = self.__find_anchor(path)
+            if project_cfg is not None:
+                return path
+            path = os.path.dirname(path)
+        raise Exception('not found project cup file!')
+
+    def __find_anchor(self, path):
+        for dir in os.listdir(path):
             if '.cup' in dir:
                 return dir
+        return None
+
+    def __get_config_file(self):
+        file = self.__find_anchor(self.root)
+        if file is not None : return os.path.join(self.root, file)
         raise Exception('not found project cup file, should in project root folder!')        
 
     def __get_path(self, project_name):
