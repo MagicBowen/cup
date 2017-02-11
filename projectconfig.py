@@ -17,12 +17,15 @@ class ProjectConfig:
         self.parser.add_section('build')
         self.parser.set('build', 'os', platform.system())
         self.parser.set('build', 'bit', platform.architecture()[0])
+        self.parser.set('build', 'target', 'Debug')
 
         self.parser.add_section('test')
         self.parser.set('test', 'include', '$ENV{GTEST_HOME}/include')
         self.parser.set('test', 'link_path', '$ENV{GTEST_HOME}/lib')
         self.parser.set('test', 'lib', 'gtest')
         self.parser.set('test', 'exclude', 'None')
+
+        self.parser.add_section('depends')
 
         self.parser.write(open(self.__get_path(project_name), "w"))
 

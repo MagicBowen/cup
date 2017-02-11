@@ -3,7 +3,7 @@
 
 USING_${namespace}
 
-TEST(Test${struct}, should_implement_code)
+TEST(Test${class_name}, should_implement_code)
 {
     ASSERT_TRUE(false);
 }

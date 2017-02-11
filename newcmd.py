@@ -34,7 +34,7 @@ class NewCmd:
         self.project.generate_file( key
                                   , file_path = self.__get_file_path(file, prefix, postfix)
                                   , include_path = self.__get_include_path(file)
-                                  , struct = self.__get_struct_name(file))
+                                  , class_name = self.__get_class_name(file))
 
     def __get_file_path(self, file, prefix, postfix):
         path = self.__get_path(file)
@@ -42,11 +42,11 @@ class NewCmd:
         return os.path.join(path, filename)
 
     def __get_include_path(self, file):
-        header_name = self.__get_struct_name(file) + '.h'
+        header_name = self.__get_class_name(file) + '.h'
         header_path = self.__get_path(file)
         return os.path.join(header_path, header_name)
 
-    def __get_struct_name(self, file):
+    def __get_class_name(self, file):
         _, name = os.path.split(file)
         return name.split('.')[0]
 

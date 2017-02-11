@@ -14,9 +14,9 @@ class CupInfo:
                      'src_cmake'        : 'src.cmake.template',
                      'test_cmake'       : 'test.cmake.template',
                      'test_main'        : 'test.main.cpp.template',
-                     'header_file'      : 'struct.h.template',
-                     'src_file'         : 'struct.cpp.template',
-                     'test_file'        : 'test.struct.cpp.template'}
+                     'header_file'      : 'class.h.template',
+                     'src_file'         : 'class.cpp.template',
+                     'test_file'        : 'test.class.cpp.template'}
 
     target_files =   {'project_cmake'    : '${project_root}/CMakeLists.txt',
                      'build_sh'         : '${project_root}/build.sh',

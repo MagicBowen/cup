@@ -5,7 +5,7 @@
 
 ${namespace}_BEGIN
 
-struct ${struct}
+struct ${class_name}
 {
 };
 

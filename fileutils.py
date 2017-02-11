@@ -12,6 +12,21 @@ class FileUtils:
         cls.fullfill(file, '')
 
     @classmethod
+    def replace_file(cls, source, target, replace):
+        if target == source: 
+            raise Exception('target %s should not be equal to source %s' % (target, source))
+        cls.create_file(target)
+        with open(source, 'r') as src:
+            with open(target, 'w') as dst:
+                for line in src:
+                    dst.write(cls.__replace_line_by(line, replace))
+
+    @classmethod
+    def __replace_line_by(cls, line, replace):
+        for key in replace.keys():
+            line.replace(key, replace[key])
+
+    @classmethod
     def fullfill(cls, file, content):
         path, _ = os.path.split(file)
         if not os.path.exists(path):

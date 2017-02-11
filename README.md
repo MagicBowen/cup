@@ -25,10 +25,11 @@ after create a project, you can import the project to eclipse-cdt directly.
 - [x]: generate file in subfolder for project
 - [x]: generate any type file
 
-- [ ]: rename a class
 - [ ]: rename a header file
 - [ ]: move a header file
 - [ ]: move a header folder
+
+- [ ]: cup build
 
 - [ ]: update the test setting by config file
 - [ ]: update the build attributes by config file
