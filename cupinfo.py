@@ -27,9 +27,9 @@ class CupInfo:
                      'src_cmake'        : '${project_root}/src/CMakeLists.txt',
                      'test_cmake'       : '${project_root}/test/CMakeLists.txt',
                      'test_main'        : '${project_root}/test/main.cpp',
-                     'header_file'      : '${project_root}/include/${project}/${filepath}/${filename}',
-                     'src_file'         : '${project_root}/src/${filepath}/${filename}',
-                     'test_file'        : '${project_root}/test/${filepath}/${filename}'}
+                     'header_file'      : '${project_root}/include/${project}/${file_path}',
+                     'src_file'         : '${project_root}/src/${file_path}',
+                     'test_file'        : '${project_root}/test/${file_path}'}
 
     @classmethod
     def create_file(cls, key, info):

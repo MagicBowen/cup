@@ -2,6 +2,7 @@ import os
 import uuid
 from projectconfig import ProjectConfig
 from cupinfo import CupInfo
+from fileutils import FileUtils
 
 
 
@@ -28,7 +29,13 @@ class Project:
             self.generate_file(file)
 
     def generate_file(self, file, **paras):
-        CupInfo.create_file(file, dict(self.get_info(), **paras))
+        CupInfo.create_file(file, dict(self.__get_info(), **paras))
+
+    def get_relative_path(self, path):
+        relative_path = FileUtils.get_rid_of_prefix_path(path, self.root)
+        if relative_path.split(os.path.sep)[0] == 'include':
+            relative_path = FileUtils.get_rid_of_top_path(relative_path)
+        return FileUtils.get_rid_of_top_path(relative_path)     
 
     def __get_default_files(self):
         return  [ 'project_cmake'
@@ -40,7 +47,7 @@ class Project:
                 , 'eclipse_cproject'
                 , 'build_bat' if self.cfg['build']['os'] == 'Windows' else 'build_sh']
 
-    def get_info(self):
+    def __get_info(self):
         return { 'project'           : self.name
                , 'project_root'      : self.root
                , 'namespace'         : self.__generate_namespace()

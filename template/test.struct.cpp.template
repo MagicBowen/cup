@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
-#include <${project}${filepath}/${struct}.h>
+#include <${project}/${include_path}>
 
 USING_${namespace}
 
-TEST(Test${struct}, should_implement_true)
+TEST(Test${struct}, should_implement_code)
 {
     ASSERT_TRUE(false);
 }

@@ -6,7 +6,8 @@ from project import Project
 class MoveCmd:
     def __init__(self, args):
         self.project = Project.load()
-        self.args = args
+        self.source = args.source
+        self.destination = args.destination
 
     def execute(self):
         pass
