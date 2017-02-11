@@ -8,6 +8,10 @@ class FileUtils:
             return f.read()
 
     @classmethod
+    def create_file(cls, file):
+        cls.fullfill(file, '')
+
+    @classmethod
     def fullfill(cls, file, content):
         path, _ = os.path.split(file)
         if not os.path.exists(path):

@@ -23,8 +23,7 @@ after create a project, you can import the project to eclipse-cdt directly.
 - [x]: generate the eclipse project files
 
 - [x]: generate file in subfolder for project
-- [ ]: generate any type file
-- [ ]: generate file by user defined template
+- [x]: generate any type file
 
 - [ ]: rename a class
 - [ ]: rename a header file

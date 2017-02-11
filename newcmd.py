@@ -25,7 +25,10 @@ class NewCmd:
             self.__generate_file('src_file', self.file, postfix = '.cpp')
             self.__generate_file('test_file', self.file, prefix = 'Test', postfix = '.cpp')
         else:
-            raise Exception('must specify the file type [-i | -s | -t | -c | -a]') 
+            self.__generate_default_file(self.file)
+
+    def __generate_default_file(self, file):
+        FileUtils.create_file(os.path.join(os.getcwd(), file))
 
     def __generate_file(self, key, file, prefix = '', postfix = ''):
         self.project.generate_file( key
