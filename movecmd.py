@@ -1,14 +1,15 @@
 import os
 from project import Project
 from fileutils import FileUtils
+from projectfile import ProjectFile
 
 
 
 class MoveCmd:
     def __init__(self, args):
         self.project = Project.load()
-        self.source = args.source
-        self.destination = args.destination
+        self.source = ProjectFile(project, args.source)
+        self.target = ProjectFile(project, args.destination)
 
     def execute(self):
         self.__verify_src_dst()
