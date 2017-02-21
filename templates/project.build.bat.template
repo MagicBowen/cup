@@ -1,5 +1,5 @@
 @echo off
-set project=$project
+set project=${project_name}
 
 echo try build %project%
 echo *******************************************************************************

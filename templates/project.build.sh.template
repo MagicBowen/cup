@@ -9,7 +9,7 @@ fi
 cd $$target
 
 echo "*******************************************************************************"
-echo "start to build $project ..."
+echo "start to build ${project_name} ..."
 
 
 cmake -DENABLE_TEST=1 ..
@@ -24,7 +24,7 @@ fi
 echo "*******************************************************************************"
 echo "start to run tests..."
 
-./test/test_$project --gtest_color=yes $$1 $$2
+./test/test_${project_name} --gtest_color=yes $$1 $$2
 
 if [ $$? -ne 0 ]; then
     echo "FAILED!"

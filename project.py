@@ -1,73 +1,71 @@
 import os
 import uuid
-from projectconfig import ProjectConfig
-from cupinfo import CupInfo
 from fileutils import FileUtils
 
 
 
 class Project:
-    @classmethod
-    def new(cls, root, name):
-        cfg = ProjectConfig(root)
-        cfg.save_default(name)
-        return cls.load()
-
-    @classmethod
-    def load(cls):
-        cfg = ProjectConfig()
-        return cls(cfg.load())
-
-    def __init__(self, cfg):
+    def __init__(self, cup, root, name, cfg):
+        self.cup = cup
         self.cfg = cfg
-        self.name = cfg['project']['name']
-        self.root = cfg['root']
+        self.root = root
+        self.name = name
 
-    def generate(self):
-        files = self.__get_default_files()
-        for file in files:
-            self.generate_file(file)
-
-    def generate_file(self, file, **paras):
-        CupInfo.create_file(file, dict(self.__get_info(), **paras))
+    def create_file(self, file_type, path = None, **extra_info):
+        self.cup.create_file(file_type, path, dict(self.__get_infos(), **extra_info))
 
     def get_relative_path(self, path):
         relative_path = FileUtils.get_rid_of_prefix_path(path, self.root)
         if relative_path.split(os.path.sep)[0] == 'include':
             relative_path = FileUtils.get_rid_of_top_path(relative_path)
-        return FileUtils.get_rid_of_top_path(relative_path)   
+        return FileUtils.get_rid_of_top_path(relative_path)  
 
-    def get_include_root(self):
-        return os.path.join(os.path.join(self.root, 'include'), self.name)
+    def get_name(self):
+        return self.name
 
-    def get_src_root(self):
-        return os.path.join(self.root, 'src')
+    def get_build_root(self):
+        return os.path.join(self.root, 'build') 
 
-    def get_test_root(self):
-        return os.path.join(self.root, 'test')
+    def get_build_make_type(self):
+        return self.cfg.get('build', 'make')
 
-    def __get_default_files(self):
-        return  [ 'project_cmake'
-                , 'namespace'
-                , 'src_cmake'
-                , 'test_cmake'
-                , 'test_main'
-                , 'eclipse_project'
-                , 'eclipse_cproject'
-                , 'build_bat' if self.cfg['build']['os'] == 'Windows' else 'build_sh']
+    def get_build_macros(self):
+        macros = self.cfg.get('build', 'macro')
+        return [] if macros is None else macros.split(',')
 
-    def __get_info(self):
-        return { 'project'           : self.name
-               , 'project_root'      : self.root
+    def get_build_target_type(self):
+        return self.cfg.get('build', 'target')
+
+    def get_test_name(self):
+        return 'test_{}'.format(self.name)
+
+    def get_root_of(self, key):
+        return self.cup.get_project_file_root(key, self.root, self.name)
+
+    def get_file_type(self, path):
+        full_path = FileUtils.get_full_path(path)
+        relative_path = FileUtils.get_rid_of_prefix_path(full_path, self.root)
+        root = relative_path.split(os.path.sep)[0]
+        if root == 'test': return 'test_file'
+        elif root == 'include': return 'header_file'
+        elif root == 'src': return 'src_file'
+        else: return None
+
+    def __get_infos(self):
+        return { 'project_root'      : self.root
+               , 'project_name'      : self.name
+               , 'include_root'      : self.get_root_of('header_file')
+               , 'src_root'          : self.get_root_of('src_file')
+               , 'test_root'         : self.get_root_of('test_file')
                , 'namespace'         : self.__generate_namespace()
                , 'include_guard'     : self.__generate_include_guard()
-               , 'test_include_path' : self.cfg['test']['include']
-               , 'test_link_path'    : self.cfg['test']['link_path']
-               , 'test_lib'          : self.cfg['test']['lib']}
+               , 'test_include_path' : self.cfg.get('test', 'include')
+               , 'test_link_path'    : self.cfg.get('test', 'link_path')
+               , 'test_lib'          : self.cfg.get('test', 'lib')}
 
     def __generate_namespace(self):
         return self.name.upper() + '_NS'
 
     def __generate_include_guard(self):
         uuid_str = str(uuid.uuid1())
-        return 'H' + uuid_str.replace('-', '_').upper()
+        return 'H' + uuid_str.replace('-', '_').upper()    

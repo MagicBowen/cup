@@ -1,7 +1,7 @@
-#ifndef $include_guard
-#define $include_guard
+#ifndef ${include_guard}
+#define ${include_guard}
 
-#define ${namespace} $project
+#define ${namespace} ${project_name}
 #define ${namespace}_BEGIN namespace ${namespace} {
 #define ${namespace}_END }
 #define USING_${namespace} using namespace ${namespace};

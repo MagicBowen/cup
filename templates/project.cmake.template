@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 
-project($project)
+project(${project_name})
 
 if(UNIX)
   set(CMAKE_CXX_FLAGS "$${CMAKE_CXX_FLAGS} -Wno-invalid-offsetof -g -std=c++1y")
@@ -21,4 +21,4 @@ if(ENABLE_TEST)
     add_subdirectory(test)
 endif()
 
-install(DIRECTORY include/$project DESTINATION include)
+install(DIRECTORY include/${project_name} DESTINATION include)

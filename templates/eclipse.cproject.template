@@ -18,7 +18,7 @@
                     <folderInfo id="cdt.managedbuild.config.gnu.cross.exe.debug.315579101." name="/" resourcePath="">
                         <toolChain id="cdt.managedbuild.toolchain.gnu.cross.exe.debug.99006451" name="Cross GCC" superClass="cdt.managedbuild.toolchain.gnu.cross.exe.debug">
                             <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.targetPlatform.gnu.cross.455514102" isAbstract="false" osList="all" superClass="cdt.managedbuild.targetPlatform.gnu.cross"/>
-                            <builder buildPath="$${workspace_loc:/${project}}/Debug" id="cdt.managedbuild.builder.gnu.cross.2144342393" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
+                            <builder buildPath="$${workspace_loc:/${project_name}}/Debug" id="cdt.managedbuild.builder.gnu.cross.2144342393" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="cdt.managedbuild.builder.gnu.cross"/>
                             <tool id="cdt.managedbuild.tool.gnu.cross.c.compiler.1192652145" name="Cross GCC Compiler" superClass="cdt.managedbuild.tool.gnu.cross.c.compiler">
                                 <option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.option.optimization.level.240110719" name="Optimization Level" superClass="gnu.c.compiler.option.optimization.level" useByScannerDiscovery="false" valueType="enumerated"/>
                                 <option id="gnu.c.compiler.option.debugging.level.83226124" name="Debug Level" superClass="gnu.c.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.c.debugging.level.max" valueType="enumerated"/>
@@ -29,7 +29,7 @@
                                 <option id="gnu.cpp.compiler.option.debugging.level.1310961625" name="Debug Level" superClass="gnu.cpp.compiler.option.debugging.level" useByScannerDiscovery="false" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
                                 <option id="gnu.cpp.compiler.option.dialect.std.410418785" superClass="gnu.cpp.compiler.option.dialect.std" useByScannerDiscovery="true" value="gnu.cpp.compiler.dialect.c++1y" valueType="enumerated"/>
                                 <option id="gnu.cpp.compiler.option.include.paths.203080939" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
-                                    <listOptionValue builtIn="false" value="&quot;$${workspace_loc:/${project}/include}&quot;"/>
+                                    <listOptionValue builtIn="false" value="&quot;$${workspace_loc:/${project_name}/include}&quot;"/>
                                     <listOptionValue builtIn="false" value="$${GTEST_HOME}/include"/>
                                 </option>
                                 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1277193343" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
@@ -53,7 +53,7 @@
         </cconfiguration>
     </storageModule>
     <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-        <project id="${project}.cdt.managedbuild.target.gnu.cross.exe.1547161017" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
+        <project id="${project_name}.cdt.managedbuild.target.gnu.cross.exe.1547161017" name="Executable" projectType="cdt.managedbuild.target.gnu.cross.exe"/>
     </storageModule>
     <storageModule moduleId="scannerConfiguration">
         <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
