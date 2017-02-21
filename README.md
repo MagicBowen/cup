@@ -53,9 +53,9 @@ cup add test/TestSource.cpp -t
 cup add src/Object -c
 
 # add a class with header, source and test files
-cup add src/Object -t
+cup add src/Object -a
 
-# could add files in any folder
+# could add files in any project sub folder
 cd include/cppcon
 cup add subfolder/Object2 -a
 ~~~
@@ -82,7 +82,7 @@ you can also run build and test through build script generated when project crea
 
 ### modify file template
 
-All file template in '.cup/templates', you can change the file template of header, source, test.
+All file template in '.cup/templates', you can change the file template of header, source and test.
 
 ### modify build parameters
 
