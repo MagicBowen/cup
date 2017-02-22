@@ -9,6 +9,43 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
   <link rel="stylesheet" href="reveal.js/css/reveal.css">
   <style type="text/css">code{white-space: pre;}</style>
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
   <link rel="stylesheet" href="reveal.js/css/theme/serif.css" id="theme">
   <!-- Printing and PDF exports -->
   <script>
@@ -31,20 +68,136 @@
 <h1>CUP</h1>
 <p>C++ unified package management tool (v0.1)</p>
 </section>
-<section id="introduction" class="slide level1">
-<h1>Introduction</h1>
+<section class="slide level1">
+
+<h2 id="introduction">Introduction</h2>
+<p>CUP is a command line tool to simplify the C++ project management.</p>
 </section>
-<section id="install" class="slide level1">
-<h1>install</h1>
+<section class="slide level1">
+
+<h2 id="install">install</h2>
+<ul>
+<li>download cup source code</li>
+<li>be sure python3 installed on your machine</li>
+<li>be sure cmake installed on your machine</li>
+</ul>
 </section>
-<section id="usage" class="slide level1">
-<h1>usage</h1>
+<section class="slide level1">
+
+<h2 id="windows-install">Windows install</h2>
+<p>add cup folder to you environment variable ‘path’</p>
 </section>
-<section id="configuration" class="slide level1">
-<h1>configuration</h1>
+<section class="slide level1">
+
+<h2 id="linux-or-mac-install">Linux or Mac install</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">sudo</span> ln -s /path/to/your/cup.py /usr/local/bin/cup</code></pre></div>
 </section>
-<section id="future-features" class="slide level1">
-<h1>future features</h1>
+<section class="slide level1">
+
+<h2 id="usage">usage</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">cup</span> -h</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="create-project">create project</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># create a cpp project named &#39;cppcon&#39; in testcup folder.</span>
+
+<span class="fu">mkdir</span> testcup
+<span class="bu">cd</span> testcup
+<span class="ex">cup</span> new cppcon</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>If you want to generate the eclipse project, add '-e'. If you want to generate the default build script, add '-b'</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">cup</span> new cppcon -e -b</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="add-file">add file</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># add a header file</span>
+<span class="ex">cup</span> add include/cppcon/Header.h -i
+
+<span class="co"># add a source file</span>
+<span class="ex">cup</span> add src/Source.cpp -s
+
+<span class="co"># add a test file</span>
+<span class="ex">cup</span> add test/TestSource.cpp -t</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="add-class">add class</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># add a class with header and source files</span>
+<span class="ex">cup</span> add src/Object -c
+
+<span class="co"># add a class with header, source and test files</span>
+<span class="ex">cup</span> add src/Object -a
+
+<span class="co"># could add files in any project sub folder</span>
+<span class="bu">cd</span> include/cppcon
+<span class="ex">cup</span> add subfolder/Object2 -a</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="build">build</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">cup</span> build</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">cup</span> build --clean</code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="test">test</h2>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">cup</span> test</code></pre></div>
+</section>
+<section class="slide level1">
+
+<p>you can also run build and test through build script generated when project created</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="co"># make sure generated project with &#39;-b&#39; to create the build script</span>
+<span class="fu">chmod</span> a+x build.sh
+<span class="ex">./build.sh</span></code></pre></div>
+</section>
+<section class="slide level1">
+
+<h2 id="eclipse-project">eclipse project</h2>
+<p>if you generated eclipse project when project generated ('-e'), you can import the project to eclipse directly.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="modify-file-template">modify file template</h2>
+<p>All file template in '.cup/templates' under project folder, you can change the file template of header, source and test.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="modify-build-parameters">modify build parameters</h2>
+<ul>
+<li>modify the build script generated when project created</li>
+<li>or, modify the config file in '.cup/config' (will give details later)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="modify-test-framework-settings">modify test framework settings</h2>
+<ul>
+<li>cup uses gtest for default, add 'GTEST_HOME' to your environment variable</li>
+<li>make sure 'GTEST_HOME' include the folder 'gtest/include' and 'lib/libgtest.a'</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="change-test-framework">change test framework</h2>
+<ul>
+<li>directly modify the CMakeLists.txt in test folder</li>
+<li>modify the 'test/main.cpp' and test template</li>
+<li>or you can modify the config in '.cup/config' (will give details later)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="future-features">future features</h2>
+<ul>
+<li>support more project level and global level configurations for build and test</li>
+<li>refactoring: rename heade file, rename class, move header file, move folder</li>
+<li>package dependency government</li>
+<li>file level dependency government</li>
+</ul>
 </section>
     </div>
   </div>

@@ -12,7 +12,7 @@
 sudo ln -s /path/to/your/cup.py /usr/local/bin/cup
 ~~~
 
-check cup installed successful
+check whether cup installed successful
 
 ~~~bash
 cup -h
