@@ -3,6 +3,7 @@
 ## install
 
 - download cup source code
+- be sure python3 installed on your machine
 - be sure cmake installed on your machine
 - for windows: add cup folder to you environment variable ‘path’
 - for linux or mac:
@@ -11,14 +12,13 @@
 sudo ln -s /path/to/your/cup.py /usr/local/bin/cup
 ~~~
 
-
-## usage
-
-### help
+check cup installed successful
 
 ~~~bash
 cup -h
 ~~~
+
+## usage
 
 ### create project
 
