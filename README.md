@@ -1,5 +1,7 @@
 # CUP : C++ unified package management tool
 
+[https://magicbowen.github.io/cup/](https://magicbowen.github.io/cup/)
+
 ## install
 
 - download cup source code
@@ -99,5 +101,4 @@ if you want to change the test framework setting:
 - directly modify the CMakeLists.txt in test folder
 - modify the 'test/main.cpp' and test template
 - or you can modify the config in '.cup/config' (will give details later)
-
 
