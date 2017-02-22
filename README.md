@@ -84,7 +84,7 @@ you can also run build and test through build script generated when project crea
 
 ### modify file template
 
-All file template in '.cup/templates', you can change the file template of header, source and test.
+All project file template in 'yourproject/.cup/templates', you can change the file template of header, source and test.
 
 ### modify build parameters
 
