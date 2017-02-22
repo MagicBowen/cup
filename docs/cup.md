@@ -1,21 +1,12 @@
-# CUP : C++ unified package management tool (v0.1)
+# CUP 
+C++ unified package management tool (v0.1)
 
----
+# Introduction
 
-## Introduction
+# install
 
----
+# usage
 
-## install
+# configuration
 
----
-
-## usage
-
----
-
-## configuration
-
----
-
-## future features
+# future features
